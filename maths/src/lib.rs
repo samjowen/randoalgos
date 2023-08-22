@@ -117,6 +117,12 @@ mod median_tests {
         let result = median(&vec![3.0, 1.0, 2.0]);
         assert_eq!(result, 2.0);
     }
+
+    #[test]
+    fn returns_correct_median_negative_numbers() {
+        let result = median(&vec![-3.0, -1.0, -2.0]);
+        assert_eq!(result, -2.0);
+    }
 }
 
 // #[cfg(test)]
