@@ -135,6 +135,18 @@ mod median_tests {
         let result = median(&vec![1.0, 1.0, 1.0]);
         assert_eq!(result, 1.0);
     }
+
+    #[test]
+    fn returns_correct_median_large_vector() {
+        let result = median(&vec![1.0; 1000]);
+        assert_eq!(result, 1.0);
+    }
+
+    #[test]
+    fn returns_correct_median_single_element() {
+        let result = median(&vec![42.0]);
+        assert_eq!(result, 42.0);
+    }
 }
 
 // #[cfg(test)]
