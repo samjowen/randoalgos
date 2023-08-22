@@ -1,5 +1,10 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+// Plan:
+// Create a function that takes a string literal and reverses it.
+// sam = mas
+// ginger menace = ecanem regnig
+
+pub fn reverse(string: &str) -> &str {
+    string
 }
 
 #[cfg(test)]
@@ -7,8 +12,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    fn it_takes_an_input() {
+        assert_eq!(reverse("a"), "a");
+    }
+
+    #[test]
+    fn it_changes_the_input() {
+        assert_ne!(reverse("abc"), "abc");
     }
 }
