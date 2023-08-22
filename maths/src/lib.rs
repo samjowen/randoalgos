@@ -1,14 +1,11 @@
-use std::cmp::Ordering;
-
 pub fn mean(numbers: &Vec<f64>) -> f64 {
     let numbers_length = numbers.len();
-    match numbers_length.cmp(&0) {
-        Ordering::Less => 0.0,
-        Ordering::Equal => 0.0,
-        Ordering::Greater => {
+    match numbers_length {
+        0 => 0.0,
+        _ => {
             let mut mean: f64 = 0.0;
             for number in numbers {
-                mean = mean + number
+                mean = mean + number;
             }
             mean / numbers.len() as f64
         }
