@@ -1,9 +1,18 @@
+use std::cmp::Ordering;
+
 pub fn mean(numbers: &Vec<f64>) -> f64 {
-    let mut mean: f64 = 0.0;
-    for number in numbers {
-        mean = mean + number
+    let numbers_length = numbers.len();
+    match numbers_length.cmp(&0) {
+        Ordering::Less => 0.0,
+        Ordering::Equal => 0.0,
+        Ordering::Greater => {
+            let mut mean: f64 = 0.0;
+            for number in numbers {
+                mean = mean + number
+            }
+            mean / numbers.len() as f64
+        }
     }
-    mean / numbers.len() as f64
 }
 
 #[cfg(test)]
@@ -33,6 +42,12 @@ mod mean_tests {
         // It's built in! Thanks Rust!
         let zero_mean = vec![-0.1, 0.0, 0.1];
         assert_eq!(mean(&zero_mean), 0.0);
+    }
+
+    #[test]
+    fn it_handles_an_empty_vector() {
+        let empty_vec: Vec<f64> = Vec::new();
+        assert_eq!(mean(&empty_vec), 0.0);
     }
 }
 
