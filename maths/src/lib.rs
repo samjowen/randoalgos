@@ -60,16 +60,56 @@ mod mean_tests {
     }
 }
 
-// #[cfg(test)]
-// mod median_tests {
-//     use super::*;
+pub fn median(numbers: &Vec<f64>) -> f64 {
+    let numbers_length = numbers.len();
+    match numbers_length {
+        0 => 0.0,
+        _ => {
+            match numbers_length % 2 {
+                0 => {
+                    // Even Number
+                    let big_index = numbers_length / 2;
+                    let small_index = (numbers_length / 2) - 1;
+                    (numbers[small_index] + numbers[big_index]) / 2.0
+                }
+                _ => {
+                    // Odd Number:
+                    let index = numbers_length / 2;
+                    numbers[index]
+                }
+            }
+        }
+    }
+}
 
-//     #[test]
-//     fn it_works() {
-//         let result = add(2, 2);
-//         assert_eq!(result, 4);
-//     }
-// }
+#[cfg(test)]
+mod median_tests {
+    use super::*;
+
+    #[test]
+    fn it_tests_we_have_a_median_function() {
+        let result = median(&vec![0.0]);
+        assert_eq!(result, 0.0);
+    }
+
+    #[test]
+    fn returns_zero_for_empty_vector() {
+        let result = median(&vec![]);
+        assert_eq!(result, 0.0);
+    }
+
+    #[test]
+    fn returns_correct_median_small_vector() {
+        let result = median(&vec![1.0, 2.0, 3.0]);
+        assert_eq!(result, 2.0);
+    }
+
+    #[test]
+    fn returns_correct_median_even_num_elements() {
+        let result = median(&vec![2.0, 3.0]);
+        assert_eq!(result, 2.5);
+    }
+}
 
 // #[cfg(test)]
 // mod mode_tests {
