@@ -61,21 +61,23 @@ mod mean_tests {
 }
 
 pub fn median(numbers: &Vec<f64>) -> f64 {
+    let mut numbers_owned = numbers.to_owned();
     let numbers_length = numbers.len();
     match numbers_length {
         0 => 0.0,
         _ => {
+            numbers_owned.sort_by(|a, b| a.partial_cmp(b).unwrap());
             match numbers_length % 2 {
                 0 => {
                     // Even Number
                     let big_index = numbers_length / 2;
                     let small_index = (numbers_length / 2) - 1;
-                    (numbers[small_index] + numbers[big_index]) / 2.0
+                    (numbers_owned[small_index] + numbers_owned[big_index]) / 2.0
                 }
                 _ => {
                     // Odd Number:
                     let index = numbers_length / 2;
-                    numbers[index]
+                    numbers_owned[index]
                 }
             }
         }
@@ -108,6 +110,12 @@ mod median_tests {
     fn returns_correct_median_even_num_elements() {
         let result = median(&vec![2.0, 3.0]);
         assert_eq!(result, 2.5);
+    }
+
+    #[test]
+    fn returns_correct_median_unordered_elements() {
+        let result = median(&vec![3.0, 1.0, 2.0]);
+        assert_eq!(result, 2.0);
     }
 }
 
