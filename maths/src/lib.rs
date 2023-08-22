@@ -25,7 +25,14 @@ mod mean_tests {
     #[test]
     fn it_prints_the_mean_with_some_recurring_numbers() {
         let short_vec: Vec<f64> = vec![3.0, 3.0, 4.0];
-        assert_eq!(mean(&short_vec), 3.3);
+        assert_eq!(mean(&short_vec), 3.3333333333333335);
+    }
+
+    #[test]
+    fn it_handles_dividing_zero() {
+        // It's built in! Thanks Rust!
+        let zero_mean = vec![-0.1, 0.0, 0.1];
+        assert_eq!(mean(&zero_mean), 0.0);
     }
 }
 
