@@ -5,7 +5,7 @@ pub fn mean(numbers: &Vec<f64>) -> f64 {
         _ => {
             let mut mean: f64 = 0.0;
             for number in numbers {
-                mean = mean + number;
+                mean += number;
             }
             mean / numbers.len() as f64
         }
