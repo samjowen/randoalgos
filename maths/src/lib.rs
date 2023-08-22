@@ -123,6 +123,18 @@ mod median_tests {
         let result = median(&vec![-3.0, -1.0, -2.0]);
         assert_eq!(result, -2.0);
     }
+
+    #[test]
+    fn returns_correct_median_mixed_numbers() {
+        let result = median(&vec![-2.0, 0.0, 2.0]);
+        assert_eq!(result, 0.0);
+    }
+
+    #[test]
+    fn returns_correct_median_repeating_numbers() {
+        let result = median(&vec![1.0, 1.0, 1.0]);
+        assert_eq!(result, 1.0);
+    }
 }
 
 // #[cfg(test)]
