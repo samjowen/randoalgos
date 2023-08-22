@@ -55,6 +55,12 @@ mod mean_tests {
         let mixed_numbers: Vec<f64> = vec![-3.0, 0.0, 3.0];
         assert_eq!(mean(&mixed_numbers), 0.0);
     }
+
+    #[test]
+    fn it_handles_large_dataset() {
+        let large_vec: Vec<f64> = vec![1.0; 1000000];
+        assert_eq!(mean(&large_vec), 1.0);
+    }
 }
 
 // #[cfg(test)]
