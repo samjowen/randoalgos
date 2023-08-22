@@ -49,6 +49,12 @@ mod mean_tests {
         let empty_vec: Vec<f64> = Vec::new();
         assert_eq!(mean(&empty_vec), 0.0);
     }
+
+    #[test]
+    fn it_handles_mixed_positive_and_negative_numbers() {
+        let mixed_numbers: Vec<f64> = vec![-3.0, 0.0, 3.0];
+        assert_eq!(mean(&mixed_numbers), 0.0);
+    }
 }
 
 // #[cfg(test)]
