@@ -1,4 +1,7 @@
 pub fn mean(numbers: &Vec<f64>) -> Option<f64> {
+    if contains_nan(numbers) {
+        return None;
+    }
     let numbers_length = numbers.len();
     match numbers_length {
         0 => None,
