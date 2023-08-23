@@ -171,13 +171,18 @@ mod median_tests {
     }
 }
 
-// #[cfg(test)]
-// mod mode_tests {
-//     use super::*;
+pub fn mode(numbers: &Vec<f64>) -> Option<f64> {
+    let first = numbers.first();
+    first.copied()
+}
 
-//     #[test]
-//     fn it_works() {
-//         let result = add(2, 2);
-//         assert_eq!(result, 4);
-//     }
-// }
+#[cfg(test)]
+mod mode_tests {
+    use super::*;
+
+    #[test]
+    fn it_tests_we_have_a_mode_function() {
+        let result = mode(&vec![0.0]);
+        assert_eq!(result, Some(0.0));
+    }
+}
