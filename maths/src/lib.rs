@@ -54,7 +54,7 @@ mod mean_tests {
     }
 }
 
-fn contains_nan(numbers: &Vec<f64>) -> bool {
+fn contains_nan(numbers: &[f64]) -> bool {
     numbers.iter().any(|&x| x.is_nan())
 }
 
