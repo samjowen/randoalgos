@@ -116,6 +116,16 @@ mod median_tests {
     fn returns_correct_median_even_num_elements() {
         let result = median(&vec![2.0, 3.0]);
         assert_eq!(result, Some(2.5));
+
+        let result2 = median(&vec![2.0, 3.0, 4.0, 5.0]);
+        assert_eq!(result2, Some(3.5));
+
+        let result3 = median(&vec![2.0, 3.0, 4.0, 5.0, 6.0, 7.0]);
+        assert_eq!(result3, Some(4.5));
+
+        let big_vec = vec![1.0; 1000];
+        let result4 = median(&big_vec);
+        assert_eq!(result4, Some(1.0));
     }
 
     #[test]
