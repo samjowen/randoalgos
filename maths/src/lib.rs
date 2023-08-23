@@ -1,13 +1,13 @@
-pub fn mean(numbers: &Vec<f64>) -> f64 {
+pub fn mean(numbers: &Vec<f64>) -> Option<f64> {
     let numbers_length = numbers.len();
     match numbers_length {
-        0 => 0.0,
+        0 => None,
         _ => {
             let mut mean: f64 = 0.0;
             for number in numbers {
                 mean += number;
             }
-            mean / numbers.len() as f64
+            Some(mean / numbers.len() as f64)
         }
     }
 }
@@ -25,38 +25,38 @@ mod mean_tests {
     #[test]
     fn it_prints_the_mean() {
         let short_vec: Vec<f64> = vec![2.0, 2.0, 2.0];
-        assert_eq!(mean(&short_vec), 2.0);
+        assert_eq!(mean(&short_vec), Some(2.0));
     }
 
     #[test]
     fn it_prints_the_mean_with_some_recurring_numbers() {
         let short_vec: Vec<f64> = vec![3.0, 3.0, 4.0];
-        assert_eq!(mean(&short_vec), 3.3333333333333335);
+        assert_eq!(mean(&short_vec), Some(3.3333333333333335));
     }
 
     #[test]
     fn it_handles_dividing_zero() {
         // It's built in! Thanks Rust!
         let zero_mean = vec![-0.1, 0.0, 0.1];
-        assert_eq!(mean(&zero_mean), 0.0);
+        assert_eq!(mean(&zero_mean), Some(0.0));
     }
 
     #[test]
     fn it_handles_an_empty_vector() {
         let empty_vec: Vec<f64> = Vec::new();
-        assert_eq!(mean(&empty_vec), 0.0);
+        assert_eq!(mean(&empty_vec), None);
     }
 
     #[test]
     fn it_handles_mixed_positive_and_negative_numbers() {
         let mixed_numbers: Vec<f64> = vec![-3.0, 0.0, 3.0];
-        assert_eq!(mean(&mixed_numbers), 0.0);
+        assert_eq!(mean(&mixed_numbers), Some(0.0));
     }
 
     #[test]
     fn it_handles_large_dataset() {
         let large_vec: Vec<f64> = vec![1.0; 1000000];
-        assert_eq!(mean(&large_vec), 1.0);
+        assert_eq!(mean(&large_vec), Some(1.0));
     }
 }
 
