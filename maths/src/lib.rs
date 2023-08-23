@@ -74,7 +74,7 @@ pub fn median(numbers: &Vec<f64>) -> Option<f64> {
     match numbers_length {
         0 => None,
         _ => {
-            numbers_owned.sort_by(|a, b| a.partial_cmp(b).unwrap());
+            numbers_owned.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
             match numbers_length % 2 {
                 0 => {
                     // Even Number
