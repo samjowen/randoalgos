@@ -2,13 +2,7 @@ pub fn mean(numbers: &Vec<f64>) -> Option<f64> {
     let numbers_length = numbers.len();
     match numbers_length {
         0 => None,
-        _ => {
-            let mut mean: f64 = 0.0;
-            for number in numbers {
-                mean += number;
-            }
-            Some(mean / numbers.len() as f64)
-        }
+        _ => Some(numbers.iter().sum::<f64>() / numbers_length as f64),
     }
 }
 
