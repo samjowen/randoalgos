@@ -175,7 +175,10 @@ mod median_tests {
 
 pub fn mode(my_vector: &Vec<i32>) -> Option<Vec<i32>> {
     let mut mode_map: HashMap<i32, i32> = HashMap::new();
-    let uniques = find_uniques(my_vector).unwrap();
+    let uniques = match find_uniques(my_vector) {
+        Some(uniques) => uniques,
+        None => return None,
+    };
 
     for number in uniques.iter() {
         mode_map.insert(*number, 0);
@@ -220,6 +223,30 @@ mod mode_tests {
     fn it_returns_the_most_frequently_occuring() {
         let result = mode(&vec![2, 0, 0, 0, 1, 1]);
         assert_eq!(result, Some(vec![0]))
+    }
+
+    #[test]
+    fn it_tests_for_empty_vector() {
+        let result = mode(&vec![]);
+        assert_eq!(result, None);
+    }
+
+    #[test]
+    fn it_tests_for_identical_elements() {
+        let result = mode(&vec![1, 1, 1, 1]);
+        assert_eq!(result, Some(vec![1]));
+    }
+
+    #[test]
+    fn it_tests_for_multiple_modes() {
+        let result = mode(&vec![1, 2, 2, 3, 3]);
+        assert_eq!(result, Some(vec![2, 3])); // or whatever your function returns for multiple modes
+    }
+
+    #[test]
+    fn it_tests_for_negative_numbers() {
+        let result = mode(&vec![1, -1, 0, -1, 1]);
+        assert_eq!(result, Some(vec![-1, 1])); // or whatever your function returns for multiple modes
     }
 }
 
