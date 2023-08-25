@@ -11,3 +11,5 @@ criterion = { version = "0.5.1", features = ["html_reports"] }
 [[bench]]
 name = "maths_benchmark"
 harness = false
+
+

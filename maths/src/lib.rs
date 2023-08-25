@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 pub fn mean(numbers: &Vec<f64>) -> Option<f64> {
     if contains_nan(numbers) {
         return None;
@@ -171,41 +173,65 @@ mod median_tests {
     }
 }
 
-// pub fn mode(numbers: &Vec<i32>) -> Option<i32> {
-//     let mut mode_map: HashMap<f64, i32> = HashMap::new();
-//     for number in numbers.iter() {
-//         let count = mode_map.entry(number).or_insert(1);
-//         *count += 1;
-//     }
-// }
+pub fn mode(my_vector: &Vec<i32>) -> Option<Vec<i32>> {
+    let mut mode_map: HashMap<i32, i32> = HashMap::new();
+    let uniques = find_uniques(my_vector).unwrap();
 
-// #[cfg(test)]
-// mod mode_tests {
-//     use super::*;
+    for number in uniques.iter() {
+        mode_map.insert(*number, 0);
+    }
 
-//     #[test]
-//     fn it_tests_we_have_a_mode_function() {
-//         let _result = mode(&vec![0]);
-//     }
+    for elem in my_vector.iter() {
+        let value = mode_map.get_mut(elem);
+        match value {
+            Some(val) => *val += 1,
+            None => {}
+        };
+    }
 
-//     #[test]
-//     fn it_tests_we_return_an_f64() {
-//         let result = mode(&vec![0]);
-//         assert_eq!(result, Some(0))
-//     }
+    let max_count = mode_map.values().max().unwrap();
+    let mut modes_vec = vec![];
 
-//     #[test]
-//     fn it_returns_the_most_frequently_occuring() {
-//         let result = mode(&vec![2, 0, 0, 0, 1, 1]);
-//         assert_eq!(result, Some(0))
-//     }
-// }
+    for elem in uniques.iter() {
+        let value = mode_map.get(elem);
+        if value == Some(max_count) {
+            modes_vec.push(*elem);
+        };
+    }
+    Some(modes_vec)
+}
 
-pub fn find_uniques<T: PartialOrd + Clone + Ord>(my_vector: &Vec<T>) -> Vec<T> {
-    let mut my_vec_owned = my_vector.to_owned();
-    my_vec_owned.sort();
-    my_vec_owned.dedup();
-    my_vec_owned
+#[cfg(test)]
+mod mode_tests {
+    use super::*;
+
+    #[test]
+    fn it_tests_we_have_a_mode_function() {
+        let _result = mode(&vec![0]);
+    }
+
+    #[test]
+    fn it_tests_we_return_an_f64() {
+        let result = mode(&vec![0]);
+        assert_eq!(result, Some(vec![0]))
+    }
+
+    #[test]
+    fn it_returns_the_most_frequently_occuring() {
+        let result = mode(&vec![2, 0, 0, 0, 1, 1]);
+        assert_eq!(result, Some(vec![0]))
+    }
+}
+
+pub fn find_uniques<T: PartialOrd + Clone + Ord>(my_vector: &Vec<T>) -> Option<Vec<T>> {
+    if my_vector.is_empty() {
+        None
+    } else {
+        let mut my_vec_owned = my_vector.to_owned();
+        my_vec_owned.sort();
+        my_vec_owned.dedup();
+        Some(my_vec_owned)
+    }
 }
 
 #[cfg(test)]
@@ -215,35 +241,35 @@ mod uniques_tests {
     #[test]
     fn it_returns_the_unique_elements() {
         let result = find_uniques(&vec![1, 1, 1, 2, 3, 3, 4, 5]);
-        assert_eq!(result, vec![1, 2, 3, 4, 5])
+        assert_eq!(result, Some(vec![1, 2, 3, 4, 5]))
     }
     #[test]
     fn it_handles_empty_vector() {
         let result = find_uniques(&Vec::<i32>::new());
-        assert_eq!(result, Vec::<i32>::new());
+        assert_eq!(result, None);
     }
 
     #[test]
     fn it_handles_all_unique_elements() {
         let result = find_uniques(&vec![5, 3, 4, 1, 2]);
-        assert_eq!(result, vec![1, 2, 3, 4, 5]);
+        assert_eq!(result, Some(vec![1, 2, 3, 4, 5]));
     }
 
     #[test]
     fn it_handles_all_duplicate_elements() {
         let result = find_uniques(&vec![1, 1, 1, 1, 1]);
-        assert_eq!(result, vec![1]);
+        assert_eq!(result, Some(vec![1]));
     }
 
     #[test]
     fn it_handles_unsorted_elements_with_duplicates() {
         let result = find_uniques(&vec![5, 3, 4, 5, 1, 2, 3, 3]);
-        assert_eq!(result, vec![1, 2, 3, 4, 5]);
+        assert_eq!(result, Some(vec![1, 2, 3, 4, 5]));
     }
 
     #[test]
     fn it_handles_strings() {
         let result = find_uniques(&vec!["apple", "banana", "apple", "banana", "cherry"]);
-        assert_eq!(result, vec!["apple", "banana", "cherry"]);
+        assert_eq!(result, Some(vec!["apple", "banana", "cherry"]));
     }
 }
