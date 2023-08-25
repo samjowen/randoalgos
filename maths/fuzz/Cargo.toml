@@ -31,3 +31,9 @@ name = "median"
 path = "fuzz_targets/median.rs"
 test = false
 doc = false
+
+[[bin]]
+name = "mode"
+path = "fuzz_targets/mode.rs"
+test = false
+doc = false
