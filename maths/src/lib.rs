@@ -171,18 +171,50 @@ mod median_tests {
     }
 }
 
-pub fn mode(numbers: &Vec<f64>) -> Option<f64> {
-    let first = numbers.first();
-    first.copied()
+// pub fn mode(numbers: &Vec<i32>) -> Option<i32> {
+//     let mut mode_map: HashMap<f64, i32> = HashMap::new();
+//     for number in numbers.iter() {
+//         let count = mode_map.entry(number).or_insert(1);
+//         *count += 1;
+//     }
+// }
+
+// #[cfg(test)]
+// mod mode_tests {
+//     use super::*;
+
+//     #[test]
+//     fn it_tests_we_have_a_mode_function() {
+//         let _result = mode(&vec![0]);
+//     }
+
+//     #[test]
+//     fn it_tests_we_return_an_f64() {
+//         let result = mode(&vec![0]);
+//         assert_eq!(result, Some(0))
+//     }
+
+//     #[test]
+//     fn it_returns_the_most_frequently_occuring() {
+//         let result = mode(&vec![2, 0, 0, 0, 1, 1]);
+//         assert_eq!(result, Some(0))
+//     }
+// }
+
+pub fn find_uniques<T: PartialOrd + Clone + Ord>(my_vector: &Vec<T>) -> Vec<T> {
+    let mut my_vec_owned = my_vector.to_owned();
+    my_vec_owned.sort();
+    my_vec_owned.dedup();
+    my_vec_owned
 }
 
 #[cfg(test)]
-mod mode_tests {
+mod uniques_tests {
     use super::*;
 
     #[test]
-    fn it_tests_we_have_a_mode_function() {
-        let result = mode(&vec![0.0]);
-        assert_eq!(result, Some(0.0));
+    fn it_returns_the_unique_elements() {
+        let result = find_uniques(&vec![1, 1, 1, 2, 3, 3, 4, 5]);
+        assert_eq!(result, vec![1, 2, 3, 4, 5])
     }
 }
