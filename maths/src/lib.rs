@@ -186,10 +186,7 @@ pub fn mode(my_vector: &Vec<i32>) -> Option<Vec<i32>> {
 
     for elem in my_vector.iter() {
         let value = mode_map.get_mut(elem);
-        match value {
-            Some(val) => *val += 1,
-            None => {}
-        };
+        if let Some(val) = value { *val += 1 };
     }
 
     let max_count = mode_map.values().max().unwrap();
