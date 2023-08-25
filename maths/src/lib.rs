@@ -217,4 +217,33 @@ mod uniques_tests {
         let result = find_uniques(&vec![1, 1, 1, 2, 3, 3, 4, 5]);
         assert_eq!(result, vec![1, 2, 3, 4, 5])
     }
+    #[test]
+    fn it_handles_empty_vector() {
+        let result = find_uniques(&Vec::<i32>::new());
+        assert_eq!(result, Vec::<i32>::new());
+    }
+
+    #[test]
+    fn it_handles_all_unique_elements() {
+        let result = find_uniques(&vec![5, 3, 4, 1, 2]);
+        assert_eq!(result, vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn it_handles_all_duplicate_elements() {
+        let result = find_uniques(&vec![1, 1, 1, 1, 1]);
+        assert_eq!(result, vec![1]);
+    }
+
+    #[test]
+    fn it_handles_unsorted_elements_with_duplicates() {
+        let result = find_uniques(&vec![5, 3, 4, 5, 1, 2, 3, 3]);
+        assert_eq!(result, vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn it_handles_strings() {
+        let result = find_uniques(&vec!["apple", "banana", "apple", "banana", "cherry"]);
+        assert_eq!(result, vec!["apple", "banana", "cherry"]);
+    }
 }
